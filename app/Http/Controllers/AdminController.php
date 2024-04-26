@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
-use App\Models\Admin;
 use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -42,8 +42,7 @@ class AdminController extends Controller
             $admin->save();}
         // Admin::create(['user_id'=>$user->id]);}
         // dd($user->id);
-        return redirect()->route('admins.index');
-        
+        return redirect()->route('admin.admins.index');
 
     }
 

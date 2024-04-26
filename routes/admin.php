@@ -1,15 +1,15 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ArticleCategoryController;
-use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\ArticleTagController;
-use App\Http\Controllers\EmployerController;
-use App\Http\Controllers\JobCategoryController;
-use App\Http\Controllers\JobDetailController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\EmployerController;
+use App\Http\Controllers\JobDetailController;
 use App\Http\Controllers\JobSeekerController;
+use App\Http\Controllers\ArticleTagController;
+use App\Http\Controllers\JobCategoryController;
+use App\Http\Controllers\ArticleCategoryController;
 
 Route::group(['prefix' => "events", "controller" => EventController::class, "as" => "events."], function () {
     //events
@@ -27,6 +27,9 @@ Route::group(['prefix' => "users"], function () {
         Route::get("/create", "create")->name('create');
         Route::get("/", "index")->name('index');
         Route::post("/", "store")->name('store');
+        Route::get("/{slug}", "show")->name('show');
+        Route::patch("/{slug}", "update")->name('update');
+        Route::delete("/{slug}", "destroy")->name('destroy');
     });
 
     //job seekers
