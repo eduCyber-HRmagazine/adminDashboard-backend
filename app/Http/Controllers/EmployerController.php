@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Employer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\EmployerRequest;
 use Illuminate\Support\Facades\Session;
 
@@ -44,7 +45,8 @@ class EmployerController extends Controller
     {
         $employer = DB::table('employers')->join('users', 'users.id', '=', 'employers.user_id')->where("slug", $slug)->first();
         $employer->created_at = Carbon::parse($employer->created_at)->diffForHumans(['parts' => 1]);
-        return view("Admin.user.employer.userInfo", compact('employer'));
+        $messages = $this->getMessages();
+        return view("Admin.user.employer.userInfo", compact('employer','messages'));
     }
 
     /**
@@ -84,6 +86,20 @@ class EmployerController extends Controller
             return redirect()
                 ->route('admin.employers.index')
                 ->with(['messages' => ['error' => ['Error delete employer: ' . $exception->getMessage()]]]);
+        }
+    }
+    public function  resetPassword($slug) {
+        try {
+            $user = User::where('slug',$slug)->first();
+            $user['password']=Hash::make('123456789');
+            $user->save();
+            return redirect()
+                ->route('admin.employers.show',[$slug])
+                ->with(['messages' => ['success' => ['Employer resetPassword Successfully']]]);
+        } catch (Throwable $exception) {
+            return redirect()
+                ->route('admin.employers.show',[$slug])
+                ->with(['messages' => ['error' => ['Error resetPassword employer: ' . $exception->getMessage()]]]);
         }
     }
     private function getMessages(): string

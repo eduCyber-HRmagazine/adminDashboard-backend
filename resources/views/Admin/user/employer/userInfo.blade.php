@@ -16,12 +16,16 @@
         @csrf
         @method("delete")
       </form>
+      <form action="{{route('admin.employers.resetPassword',[$employer->slug])}}" method="POST" id="resetPassword" 
+        >
+          @csrf
+        </form>
       <button type="submit" class="btn btn-sm" style="color: #ed2708" form="DeleteEmploy" 
       onclick="alert('Are you sure you want to delete?')" ><i class="icon-trash"></i> Delete User</button>
      
-      <a href="#" class="btn btn-sm btn-primary text-white me-0"
+      <button type="submit"    class="btn btn-sm btn-primary text-white me-0" form="resetPassword"
         ><i class="icon-key"></i> Reset Password
-      </a>
+      </button>
     </div>
   </div>
   <div class="pt-4">

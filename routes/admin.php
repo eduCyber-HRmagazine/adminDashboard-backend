@@ -45,6 +45,7 @@ Route::group(['prefix' => "users"], function () {
         Route::get("/{slug}", "show")->name('show');
         Route::delete("/{slug}", "destroy")->name('destroy');
         Route::patch("/{slug}","update")->name('update');
+        Route::post("employers/{slug}/reset","resetPassword")->name('resetPassword');
     });
 });
 
